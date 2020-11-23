@@ -13,7 +13,9 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 
 /**
  * redis授权码模式授权码服务-操作授权码生成、存储、删除
- **/
+ *
+ * @author happy
+ */
 public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCodeServices {
     private static final String AUTHORIZATION_CODE = "authorization:code:";
     /**
@@ -25,7 +27,7 @@ public class RedisAuthorizationCodeServices extends RandomValueAuthorizationCode
      */
     private String prefix = "";
     private final RedisConnectionFactory connectionFactory;
-    private RedisTokenStoreSerializationStrategy serializationStrategy = new JdkSerializationStrategy();
+    private final RedisTokenStoreSerializationStrategy serializationStrategy = new JdkSerializationStrategy();
 
 
     public RedisAuthorizationCodeServices(RedisConnectionFactory connectionFactory) {

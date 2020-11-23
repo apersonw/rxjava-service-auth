@@ -12,6 +12,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 public class RedisConfig {
+
     /**
      * 对象模板自定义存储序列化
      *

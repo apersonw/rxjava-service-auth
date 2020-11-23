@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -34,6 +33,11 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 认证微服务配置
+ *
+ * @author happy
+ */
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
@@ -48,10 +52,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
-
-
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 配置token存储，这个配置token存到redis中,还有一种常用的是JwkTokenStore
@@ -80,12 +80,12 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         // 采用token转jwt，并添加一些自定义信息（token增强）
         // 默认使用随机UUID生成的token
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         tokenEnhancerChain.setTokenEnhancers(
-                Arrays.asList(jwtAccessTokenConverter(),tokenEnhancer()));
+                Arrays.asList(jwtAccessTokenConverter(), tokenEnhancer()));
         endpoints.tokenEnhancer(tokenEnhancerChain)
                 // 配置token存储，一般配置redis存储
                 .tokenStore(tokenStore())
@@ -112,8 +112,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         endpoints.tokenServices(tokenServices);
 
     }
-
-
 
     /**
      * jwt格式封装token
@@ -147,7 +145,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         security
                 .allowFormAuthenticationForClients()
                 .tokenKeyAccess("isAuthenticated()")
@@ -162,9 +160,9 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         // 这里配置密码模式、刷新token模式、自定义手机号验证码模式、授权码模式、简化模式
         list.add(new ResourceOwnerPasswordTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory()));
         list.add(new RefreshTokenGranter(endpoints.getTokenServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory()));
-        list.add(new MobileCodeTokenGranter(authenticationManager,endpoints.getTokenServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory()));
-        list.add(new AuthorizationCodeTokenGranter(endpoints.getTokenServices(),endpoints.getAuthorizationCodeServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory()));
-        list.add(new ImplicitTokenGranter(endpoints.getTokenServices(),endpoints.getClientDetailsService(),endpoints.getOAuth2RequestFactory()));
+        list.add(new MobileCodeTokenGranter(authenticationManager, endpoints.getTokenServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory()));
+        list.add(new AuthorizationCodeTokenGranter(endpoints.getTokenServices(), endpoints.getAuthorizationCodeServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory()));
+        list.add(new ImplicitTokenGranter(endpoints.getTokenServices(), endpoints.getClientDetailsService(), endpoints.getOAuth2RequestFactory()));
         return new CompositeTokenGranter(list);
     }
 }
