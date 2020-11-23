@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 
 /**
  * 这里可以看作数据库实体
- * @author: yaohw
- * @create: 2019-10-12 16:15
  **/
 @Data
 @AllArgsConstructor

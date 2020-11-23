@@ -74,8 +74,6 @@ public class MobileCodeAuthenticationProvider implements AuthenticationProvider,
 
     /**
      * 指定该认证提供者验证Token对象
-     * @param aClass
-     * @return
      */
     @Override
     public boolean supports(Class<?> aClass) {
@@ -84,8 +82,6 @@ public class MobileCodeAuthenticationProvider implements AuthenticationProvider,
 
     /**
      * 账号禁用、锁定、超时校验
-     *
-     * @param user
      */
     private void check(UserDetails user) {
         if (!user.isAccountNonLocked()) {

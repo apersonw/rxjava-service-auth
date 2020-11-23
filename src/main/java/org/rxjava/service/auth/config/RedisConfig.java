@@ -9,13 +9,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * redis配置
- *
- * @author happy
  */
 @Configuration
 public class RedisConfig {
-
-
     /**
      * 对象模板自定义存储序列化
      *
@@ -30,7 +26,6 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
-
 
     /**
      * 对hash类型的数据操作

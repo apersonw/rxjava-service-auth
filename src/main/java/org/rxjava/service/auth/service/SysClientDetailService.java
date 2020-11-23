@@ -11,16 +11,12 @@ import java.util.concurrent.TimeUnit;
 
 /**
  *  Oauth客户端服务
- * @author: yaohw
- * @create: 2019-10-12 17:33
  **/
 @Service
 public class SysClientDetailService {
 
     /**
      * 根据客户端id查询
-     * @param clientId
-     * @return org.springframework.security.oauth2.provider.client.BaseClientDetails
      */
     public BaseClientDetails selectById(String clientId) {
         BaseClientDetails clientDetails = new BaseClientDetails();

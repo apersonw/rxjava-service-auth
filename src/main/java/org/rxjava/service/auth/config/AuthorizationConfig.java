@@ -56,7 +56,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     /**
      * 配置token存储，这个配置token存到redis中,还有一种常用的是JwkTokenStore
      * jwt的缺点已发布令牌不可控
-     * @return
      */
     @Bean
     public TokenStore tokenStore() {
@@ -65,7 +64,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 配置授权码模式授权码服务（存授权码和删除授权码）,不配置默认为内存模式
-     * @return
      */
     @Primary
     @Bean
@@ -75,8 +73,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 配置客户端详情（根据客户的id查询客户端）
-     * @param clients
-     * @throws Exception
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -121,7 +117,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * jwt格式封装token
-     * @return
      */
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
@@ -161,8 +156,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     /**
      * 创建grant_type列表
-     * @param endpoints
-     * @return
      */
     private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints) {
         List<TokenGranter> list = new ArrayList<>();

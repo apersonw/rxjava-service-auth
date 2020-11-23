@@ -7,13 +7,11 @@ import java.util.Collection;
 
 /**
  * 手机号短信认证Token
- * @author: yaohw
- * @create: 2019-09-29 19:56
  **/
 public class MobileCodeAuthenticationToken extends AbstractAuthenticationToken {
 
     private final Object principal;
-    private Object credentials;
+    private final Object credentials;
 
     public MobileCodeAuthenticationToken(Object principal, Object credentials) {
         super(null);
@@ -52,8 +50,5 @@ public class MobileCodeAuthenticationToken extends AbstractAuthenticationToken {
     public void eraseCredentials() {
         super.eraseCredentials();
     }
-
-
-
 
 }

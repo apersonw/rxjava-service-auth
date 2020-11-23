@@ -16,8 +16,6 @@ import java.util.Map;
 
 /**
  * 自定义grant_type模式-手机号短信验证模式
- * @author: yaohw
- * @create: 2019-09-29 18:29
  **/
 public class MobileCodeTokenGranter extends AbstractTokenGranter {
 
@@ -46,19 +44,16 @@ public class MobileCodeTokenGranter extends AbstractTokenGranter {
         try {
             userAuth = authenticationManager.authenticate(userAuth);
         }
-        catch (AccountStatusException ase) {
+        catch (AccountStatusException | BadCredentialsException ase) {
             //covers expired, locked, disabled cases (mentioned in section 5.2, draft 31)
             throw new InvalidGrantException(ase.getMessage());
         }
-        catch (BadCredentialsException e) {
-            // If the username/password are wrong the spec says we should send 400/invalid grant
-            throw new InvalidGrantException(e.getMessage());
-        }
+        // If the username/password are wrong the spec says we should send 400/invalid grant
         if (userAuth == null || !userAuth.isAuthenticated()) {
             throw new InvalidGrantException("Could not authenticate mobile: " + mobile);
         }
 
-        OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
-        return new OAuth2Authentication(storedOAuth2Request, userAuth);
+        OAuth2Request oAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
+        return new OAuth2Authentication(oAuth2Request, userAuth);
     }
 }
