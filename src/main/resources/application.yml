@@ -1,2 +1,18 @@
+spring:
+  application:
+    name: auth-server
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
+    timeout: 3000
+    lettuce:
+      pool:
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
+        min-idle: 0
 server:
   port: 8000
+##开启日志DEBUG级别，便于查看调试信息
+logging.level.org.springframework.security: DEBUG
