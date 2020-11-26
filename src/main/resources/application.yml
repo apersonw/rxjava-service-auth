@@ -12,7 +12,10 @@ spring:
         max-active: 8
         max-wait: -1ms
         min-idle: 0
-server:
-  port: 8000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9001/auth/realms/demo
 ##开启日志DEBUG级别，便于查看调试信息
 logging.level.org.springframework.security: DEBUG
