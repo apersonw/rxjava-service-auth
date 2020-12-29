@@ -1,21 +1,20 @@
 spring:
   application:
-    name: auth-server
+    name: rxjava-service-auth
   redis:
-    host: 127.0.0.1
-    password:
+    database: 2
+    host: localhost
     port: 6379
-    timeout: 3000
-    lettuce:
+    password:
+    jedis:
       pool:
-        max-idle: 8
         max-active: 8
-        max-wait: -1ms
+        max-idle: 8
         min-idle: 0
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9001/auth/realms/demo
-##开启日志DEBUG级别，便于查看调试信息
-logging.level.org.springframework.security: DEBUG
+    timeout: 100ms
+server:
+  port: 6001
+management:
+  endpoint:
+    health:
+      enabled: true

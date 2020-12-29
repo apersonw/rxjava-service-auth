@@ -1,2 +1,9 @@
-### 一、同步认证微服务
-### 二、异步认证微服务
+### 认证服务器端点配置：
+
+1、token模式默认存储在内存中，服务重启后就没了。这里改为使用redis存储，同时也可用于客户端扩展集群
+
+2、如果要使用密码模式，必须得配置AuthenticationManager(原因可查看源码AuthorizationServerEndpointsConfigurer的getDefaultTokenGranters方法)
+
+3、在使用密码模式时，如果用户实现了UserDetailsService类，则在验证用户名密码时，使用自定义的方法。因为在校验用户名密码时，使用了DaoAuthenticationProvider中的retrieveUser方法(具体可参考AuthenticationManager、ProviderManager）
+
+4、默认获取token的路径是/oauth/token，通过pathMapping方法，可改变默认路径
