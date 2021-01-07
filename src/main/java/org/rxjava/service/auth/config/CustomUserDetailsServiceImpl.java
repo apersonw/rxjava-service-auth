@@ -26,9 +26,9 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("usernameis:" + username);
         // 查询数据库操作
-        if(!username.equals("admin")){
+        if (!username.equals("admin")) {
             throw new UsernameNotFoundException("the user is not found");
-        }else{
+        } else {
             // 用户角色也应在数据库中获取
             String role = "ROLE_ADMIN";
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -39,7 +39,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
             // return new org.springframework.security.core.userdetails.User(username,password, authorities);
 
             // 返回自定义的 KiteUserDetails
-            User user = new User(username,password,authorities);
+            User user = new User(username, password, authorities);
             return user;
         }
     }

@@ -19,9 +19,12 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author happy
+ */
 @Configuration
 @EnableAuthorizationServer
-public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
+public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     public PasswordEncoder passwordEncoder;
@@ -77,7 +80,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         security.allowFormAuthenticationForClients();
         security.checkTokenAccess("isAuthenticated()");
         security.tokenKeyAccess("isAuthenticated()");

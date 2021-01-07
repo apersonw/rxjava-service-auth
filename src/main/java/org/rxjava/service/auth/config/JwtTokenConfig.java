@@ -25,7 +25,7 @@ public class JwtTokenConfig {
     }
 
     @Bean
-    public TokenEnhancer jwtTokenEnhancer(){
+    public TokenEnhancer jwtTokenEnhancer() {
         return new JwtTokenEnhancer();
     }
 }
