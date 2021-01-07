@@ -11,14 +11,11 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 public class RedisTokenStoreConfig {
 
     @Autowired
-    private RedisConnectionFactory connectionFactory;
+    private RedisConnectionFactory redisConnectionFactory;
 
-    /**
-     * 配置Token存储到Redis中
-     */
     @Bean
     public TokenStore redisTokenStore() {
-        return new RedisTokenStore(connectionFactory);
+        return new RedisTokenStore(redisConnectionFactory);
     }
 
 }
