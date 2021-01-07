@@ -38,9 +38,8 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
             // 返回默认的 User
             // return new org.springframework.security.core.userdetails.User(username,password, authorities);
 
-            // 返回自定义的 KiteUserDetails
-            User user = new User(username, password, authorities);
-            return user;
+            // 返回自定义的 UserDetails
+            return new User(username, password, authorities);
         }
     }
 }
