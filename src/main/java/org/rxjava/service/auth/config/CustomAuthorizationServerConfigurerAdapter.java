@@ -65,6 +65,7 @@ public class CustomAuthorizationServerConfigurerAdapter extends AuthorizationSer
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //clients.jdbc(dataSource);
 
+        //这一步应该放在数据库
         clients.inMemory()
                 .withClient("order-client")
                 .secret(passwordEncoder.encode("order-secret-8888"))
