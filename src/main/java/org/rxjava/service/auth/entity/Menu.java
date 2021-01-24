@@ -16,10 +16,6 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Menu {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    private String id;
 
     private String parentId;
 
@@ -34,6 +30,15 @@ public class Menu {
     private MenuType menuType;
 
     private int orderNum;
+
+    /************通用定义字段************/
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    private String id;
+
+    @Version
+    private long version;
 
     @CreatedBy
     private String createUserId;

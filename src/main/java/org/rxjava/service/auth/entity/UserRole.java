@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -16,20 +17,35 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(
+        indexes = {
+                @Index(columnList = "userId,roleId",unique = true)
+        }
+)
 public class UserRole {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    private String id;
 
     private String userId;
 
     private String roleId;
 
+    /************通用定义字段************/
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    private String id;
+
+    @Version
+    private long version;
+
+    @CreatedBy
+    private String createUserId;
+
+    @LastModifiedBy
+    private String lastModifyUserId;
 
     @CreatedDate
-    private LocalDateTime createTime;
+    private LocalDateTime createDateTime;
 
     @LastModifiedDate
-    private LocalDateTime updateTime;
+    private LocalDateTime lastModifiedDateTime;
 }
