@@ -20,7 +20,7 @@ public class Resource {
 
     private String url;
 
-    private String creator;;
+    private String creator;
 
     private Integer status;
 
