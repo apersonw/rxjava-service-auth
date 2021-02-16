@@ -1,14 +1,12 @@
 package org.rxjava.service.auth.entity;
 
 import lombok.Data;
-import org.rxjava.web.core.WebEntity;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.rxjava.web.core.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 
 @Data
 @Entity
-public class RoleMenu extends WebEntity {
+public class RoleMenu extends BaseEntity {
     private String name;
 }
