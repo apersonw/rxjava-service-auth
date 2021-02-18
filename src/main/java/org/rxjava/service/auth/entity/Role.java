@@ -9,4 +9,5 @@ import javax.persistence.Entity;
 @Entity
 public class Role extends BaseEntity {
     private String name;
+    private String description;
 }

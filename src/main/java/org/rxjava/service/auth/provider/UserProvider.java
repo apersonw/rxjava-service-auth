@@ -7,23 +7,96 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
+@RequestMapping("users")
 public class UserProvider {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("userList")
-    public Page<User> getUserList() {
-        return userRepository.findAll(PageRequest.of(0,100));
+    /**
+     * 查询用户列表
+     */
+    @GetMapping
+    public Page<User> list() {
+        return userRepository.findAll(PageRequest.of(0, 100));
     }
 
-    @GetMapping("user")
-    public User saveUser(UserForm form) {
-        User user = new User();
-        BeanUtils.copyProperties(form, user);
-        return userRepository.save(user);
+    /**
+     * 导出用户数据
+     */
+    @GetMapping(value = "/download")
+    @PreAuthorize("@el.check('user:list')")
+    public void download() {
     }
+
+    /**
+     * 查询用户列表
+     */
+    @GetMapping
+    @PreAuthorize("@el.check('user:list')")
+    public List<User> query() {
+        return new ArrayList<>();
+    }
+
+    /**
+     * 新增用户
+     */
+    @PostMapping
+    @PreAuthorize("@el.check('user:add')")
+    public User create() {
+        return new User();
+    }
+
+    /**
+     * 修改用户
+     */
+    @PutMapping
+    @PreAuthorize("@el.check('user:edit')")
+    public User update() {
+        return new User();
+    }
+
+    /**
+     * 删除用户
+     */
+    @DeleteMapping
+    @PreAuthorize("@el.check('user:del')")
+    public void delete() {
+    }
+
+    /**
+     * 个人信息修改
+     */
+    @PutMapping(value = "self")
+    public User center() {
+        return new User();
+    }
+
+    /**
+     * 个人密码修改
+     */
+    @PatchMapping("/password")
+    public void selfUpdatePassword() {
+    }
+
+    /**
+     * 个人头像修改
+     */
+    @PatchMapping("/avatar")
+    public void selfUpdateAvatar() {
+    }
+
+    /**
+     * 个人邮箱修改
+     */
+    @PatchMapping("/updateEmail/{code}")
+    public void updateEmail() {
+    }
+
 }

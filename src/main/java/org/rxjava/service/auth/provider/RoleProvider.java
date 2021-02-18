@@ -1,31 +1,93 @@
 package org.rxjava.service.auth.provider;
 
 import org.rxjava.service.auth.entity.Role;
-import org.rxjava.service.auth.entity.User;
-import org.rxjava.service.auth.form.UserForm;
-import org.rxjava.service.auth.repository.RoleRepository;
-import org.rxjava.service.auth.repository.UserRepository;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("roles")
 public class RoleProvider {
-    @Autowired
-    private RoleRepository roleRepository;
 
-    @GetMapping("roleList")
-    public List<Role> getUserList() {
-        return roleRepository.findAll();
+    /**
+     * 查询角色信息
+     */
+    @GetMapping(value = "/{id}")
+    @PreAuthorize("@el.check('roles:list')")
+    public Role role(@PathVariable String id) {
+        return new Role();
     }
 
-    @GetMapping("role")
-    public Role saveRole(UserForm form) {
-        Role role = new Role();
-        BeanUtils.copyProperties(form, role);
-        return roleRepository.save(role);
+    /**
+     * 导出角色数据
+     */
+    @GetMapping(value = "/download")
+    @PreAuthorize("@el.check('role:list')")
+    public void download() {
+    }
+
+    /**
+     * 查询所有角色
+     */
+    @GetMapping(value = "/allList")
+    @PreAuthorize("@el.check('roles:list','user:add','user:edit')")
+    public List<Role> allList() {
+        return new ArrayList<>();
+    }
+
+    /**
+     * 查询角色列表
+     */
+    @GetMapping
+    @PreAuthorize("@el.check('roles:list')")
+    public Page<Role> list() {
+        return new PageImpl<>(new ArrayList<>());
+    }
+
+    /**
+     * 获取用户级别
+     */
+    @GetMapping(value = "/level")
+    public int level() {
+        return 1;
+    }
+
+    /**
+     * 新增角色
+     */
+    @PostMapping
+    @PreAuthorize("@el.check('roles:add')")
+    public Role postRole() {
+        return new Role();
+    }
+
+    /**
+     * 修改角色
+     */
+    @PutMapping
+    @PreAuthorize("@el.check('roles:edit')")
+    public Role putRole() {
+        return new Role();
+    }
+
+    /**
+     * 修改角色菜单
+     */
+    @PutMapping(value = "/menu")
+    @PreAuthorize("@el.check('roles:edit')")
+    public void updateMenu() {
+    }
+
+    /**
+     * 删除角色
+     */
+    @DeleteMapping
+    @PreAuthorize("@el.check('roles:del')")
+    public void deleteRole() {
+
     }
 }
