@@ -22,7 +22,7 @@ public class UserProvider {
     /**
      * 查询用户列表
      */
-    @GetMapping
+    @GetMapping("page")
     public Page<User> list() {
         return userRepository.findAll(PageRequest.of(0, 100));
     }
@@ -41,7 +41,7 @@ public class UserProvider {
     @GetMapping
     @PreAuthorize("@el.check('user:list')")
     public List<User> query() {
-        return new ArrayList<>();
+        return userRepository.findAllUsers();
     }
 
     /**
