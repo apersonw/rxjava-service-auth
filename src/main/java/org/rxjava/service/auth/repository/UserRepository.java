@@ -1,17 +1,13 @@
 package org.rxjava.service.auth.repository;
 
+import org.bson.types.ObjectId;
 import org.rxjava.service.auth.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, String>, SpecialUserRepository, JpaSpecificationExecutor<User> {
+public interface UserRepository extends MongoRepository<User, ObjectId>, SpecialUserRepository {
 
 }
 
@@ -20,15 +16,9 @@ interface SpecialUserRepository {
 }
 
 class UserRepositoryImpl implements SpecialUserRepository {
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Override
     public List<User> findAllUsers() {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
-        Root<User> userRoot = query.from(User.class);
-        query.where(criteriaBuilder.equal(userRoot.get("isAdmin"), true));
-        return entityManager.createQuery(query).getResultList();
+        return new ArrayList<>();
     }
 }

@@ -60,21 +60,21 @@ public class DictProvider {
     /**
      * 查询字典详情
      */
-    @GetMapping
+    @GetMapping("detail")
     public void queryDetail() {
     }
 
     /**
      * 查询多个字典详情
      */
-    @GetMapping(value = "/map")
+    @GetMapping(value = "map")
     public void getDictDetailMaps() {
     }
 
     /**
      * 新增字典详情
      */
-    @PostMapping
+    @PostMapping("detail")
     @PreAuthorize("@el.check('dict:add')")
     public void createDetail() {
 
@@ -83,7 +83,7 @@ public class DictProvider {
     /**
      * 修改字典详情
      */
-    @PutMapping
+    @PutMapping("detail")
     @PreAuthorize("@el.check('dict:edit')")
     public void updateDetail() {
     }
@@ -91,7 +91,7 @@ public class DictProvider {
     /**
      * 删除字典详情
      */
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "{id}")
     @PreAuthorize("@el.check('dict:del')")
     public void deleteDetail() {
     }

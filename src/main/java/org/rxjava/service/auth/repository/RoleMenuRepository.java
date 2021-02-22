@@ -1,8 +1,9 @@
 package org.rxjava.service.auth.repository;
 
+import org.bson.types.ObjectId;
 import org.rxjava.service.auth.entity.RoleMenu;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface RoleMenuRepository extends JpaRepository<RoleMenu, String> {
+public interface RoleMenuRepository extends MongoRepository<RoleMenu, ObjectId> {
 
 }

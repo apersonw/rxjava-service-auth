@@ -17,7 +17,7 @@ public class MenuProvider {
     /**
      * 导出菜单数据
      */
-    @GetMapping(value = "/download")
+    @GetMapping(value = "download")
     @PreAuthorize("@el.check('menu:list')")
     public void download() {
     }
@@ -25,7 +25,7 @@ public class MenuProvider {
     /**
      * 获取前端所需菜单
      */
-    @GetMapping(value = "/front")
+    @GetMapping(value = "front")
     public List<Menu> frontMenus() {
         return new ArrayList<>();
     }
@@ -33,7 +33,7 @@ public class MenuProvider {
     /**
      * 返回当前全部的菜单
      */
-    @GetMapping(value = "/childMenus")
+    @GetMapping(value = "childMenus")
     @PreAuthorize("@el.check('menu:list','roles:list')")
     public List<Menu> query(@RequestParam String parentId) {
         return new ArrayList<>();
@@ -42,7 +42,7 @@ public class MenuProvider {
     /**
      * 根据菜单ID返回所有子节点ID，包含自身ID
      */
-    @GetMapping(value = "/childIds")
+    @GetMapping(value = "childIds")
     @PreAuthorize("@el.check('menu:list','roles:list')")
     public List<String> child(@RequestParam String parentId) {
         return new ArrayList<>();
@@ -60,7 +60,7 @@ public class MenuProvider {
     /**
      * 查询菜单:根据ID获取同级与上级数据
      */
-    @PostMapping("/superior")
+    @PostMapping("superior")
     @PreAuthorize("@el.check('menu:list')")
     public List<Menu> getSuperior(@RequestBody List<String> ids) {
         return new ArrayList<>();

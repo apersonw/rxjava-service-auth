@@ -3,9 +3,6 @@ package org.rxjava.service.auth.entity;
 import lombok.Data;
 import org.rxjava.web.core.BaseEntity;
 
-import javax.persistence.Entity;
-
-@Entity
 @Data
 public class Resource extends BaseEntity {
 

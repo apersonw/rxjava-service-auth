@@ -1,13 +1,7 @@
 package org.rxjava.service.auth.provider;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.*;
 
 /**
  * 部门管理
@@ -44,7 +38,7 @@ public class DepartementProvider {
      */
     @PostMapping
     @PreAuthorize("@el.check('dept:add')")
-    public void create(){
+    public void create() {
 
     }
 
@@ -53,7 +47,7 @@ public class DepartementProvider {
      */
     @PutMapping
     @PreAuthorize("@el.check('dept:edit')")
-    public void update(){
+    public void update() {
     }
 
     /**
@@ -61,6 +55,6 @@ public class DepartementProvider {
      */
     @DeleteMapping
     @PreAuthorize("@el.check('dept:del')")
-    public void delete(){
+    public void delete() {
     }
 }
