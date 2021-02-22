@@ -1,6 +1,7 @@
 package org.rxjava.service.auth.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
@@ -12,13 +13,13 @@ import java.util.Optional;
  */
 @Slf4j
 @Component
-public class SpringSecurityAuditorAware implements AuditorAware<String> {
+public class SpringSecurityAuditorAware implements AuditorAware<ObjectId> {
 
     @NotNull
     @Override
-    public Optional<String> getCurrentAuditor() {
+    public Optional<ObjectId> getCurrentAuditor() {
 
-        String userId = "testUserId";
+        ObjectId userId = new ObjectId("5349b4ddd2781d08c09890f3");
         //if (userId != null){
         return Optional.of(userId);
         //} else {

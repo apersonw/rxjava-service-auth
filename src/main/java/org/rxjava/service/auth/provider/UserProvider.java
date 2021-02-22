@@ -33,6 +33,9 @@ public class UserProvider {
      */
     @GetMapping("page")
     public Page<User> list() {
+        User entity = new User();
+        entity.setName("hello");
+        userRepository.save(entity);
         return userRepository.findAll(PageRequest.of(0, 100));
     }
 

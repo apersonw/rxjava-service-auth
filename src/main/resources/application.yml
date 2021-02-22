@@ -6,16 +6,10 @@ spring:
     host: localhost
     port: 6379
     timeout: 100ms
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-  datasource:
-    url: jdbc:mysql://localhost:3306/rxjava-service-auth
-    username: root
-    password: root111
+  data:
+    mongodb:
+      database: rxjava-service-auth
+      uri: mongodb://localhost:27017
 server:
   port: 8080
 debug: true
