@@ -2,7 +2,9 @@ package org.rxjava.service.auth.provider;
 
 import org.rxjava.service.auth.entity.User;
 import org.rxjava.service.auth.form.UserForm;
+import org.rxjava.service.auth.form.UserRegisterForm;
 import org.rxjava.service.auth.repository.UserRepository;
+import org.rxjava.service.auth.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,16 @@ import java.util.List;
 public class UserProvider {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
+
+    /**
+     * 注册用户
+     */
+    @PostMapping("register")
+    public User register(UserRegisterForm form) {
+        return userService.save(form);
+    }
 
     /**
      * 查询用户列表

@@ -15,7 +15,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/rxjava-service-auth
     username: root
-    password: 1111
+    password: root111
 server:
   port: 8080
 debug: true
