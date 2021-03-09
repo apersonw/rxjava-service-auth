@@ -32,6 +32,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -128,7 +130,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setKeyPair(keyPair());
+        //converter.setKeyPair(keyPair());
         return converter;
     }
 
@@ -137,11 +139,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public KeyPair keyPair() {
-        KeyStoreKeyFactory factory = new KeyStoreKeyFactory(
-                new ClassPathResource("youlai.jks"), "123456".toCharArray());
-        KeyPair keyPair = factory.getKeyPair(
-                "youlai", "123456".toCharArray());
-        return keyPair;
+        //KeyStoreKeyFactory factory = new KeyStoreKeyFactory(
+        //        new ClassPathResource("youlai.jks"), "123456".toCharArray());
+
+        return null;
     }
 
     /**

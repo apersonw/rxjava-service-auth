@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         switch (clientId) {
             // 后台用户
             case AuthConstants.ADMIN_CLIENT_ID:
-                Result<UserDTO> userRes = userFeignService.getUserByUsername(username);
+                Result<UserDTO> userRes = userFeignService.getUserByUsername();
                 if (ResultCode.USER_NOT_EXIST.getCode().equals(userRes.getCode())) {
                     throw new UsernameNotFoundException(ResultCode.USER_NOT_EXIST.getMsg());
                 }

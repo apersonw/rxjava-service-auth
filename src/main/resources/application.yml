@@ -10,6 +10,16 @@ spring:
     mongodb:
       database: rxjava-service-auth
       uri: mongodb://localhost:27017
+  cloud:
+    kubernetes:
+      enabled: false
+      discovery:
+        enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mall-pms?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+    username: root
+    password: root111
 server:
   port: 8080
 debug: true
