@@ -1,20 +1,21 @@
 package org.rxjava.service.auth.config;
 
-import cn.hutool.http.HttpStatus;
-import cn.hutool.json.JSONUtil;
-import com.youlai.auth.domain.User;
-import com.youlai.auth.filter.CustomClientCredentialsTokenEndpointFilter;
-import com.youlai.auth.service.JdbcClientDetailsServiceImpl;
-import com.youlai.auth.service.UserDetailsServiceImpl;
-import com.youlai.common.constant.AuthConstants;
-import com.youlai.common.result.Result;
-import com.youlai.common.result.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.rxjava.service.auth.constant.AuthConstants;
+import org.rxjava.service.auth.entity.User;
+import org.rxjava.service.auth.filter.CustomClientCredentialsTokenEndpointFilter;
+import org.rxjava.service.auth.result.Result;
+import org.rxjava.service.auth.result.ResultCode;
+import org.rxjava.service.auth.service.JdbcClientDetailsServiceImpl;
+import org.rxjava.service.auth.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -105,12 +106,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return (request, response, e) -> {
-            response.setStatus(HttpStatus.HTTP_OK);
+            response.setStatus(HttpStatus.OK.value());
             response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
             response.setHeader("Access-Control-Allow-Origin", "*");
             response.setHeader("Cache-Control", "no-cache");
             Result result = Result.failed(ResultCode.CLIENT_AUTHENTICATION_FAILED);
-            response.getWriter().print(JSONUtil.toJsonStr(result));
+
+            try {
+                response.getWriter().print(new JSONObject(result.toString()));
+            } catch (JSONException jsonException) {
+                jsonException.printStackTrace();
+            }
             response.getWriter().flush();
         };
     }

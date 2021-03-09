@@ -1,14 +1,14 @@
 package org.rxjava.service.auth.entity;
 
-import cn.hutool.core.collection.CollectionUtil;
-import com.youlai.admin.pojo.dto.UserDTO;
-import com.youlai.common.constant.AuthConstants;
-import com.youlai.mall.ums.pojo.dto.AuthMemberDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.rxjava.service.auth.constant.AuthConstants;
+import org.rxjava.service.auth.dto.AuthMemberDTO;
+import org.rxjava.service.auth.dto.UserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +39,8 @@ public class User implements UserDetails {
         this.setPassword(AuthConstants.BCRYPT + user.getPassword());
         this.setEnabled(Integer.valueOf(1).equals(user.getStatus()));
         this.setClientId(user.getClientId());
-        if (CollectionUtil.isNotEmpty(user.getRoleIds())) {
+
+        if (!CollectionUtils.isEmpty(user.getRoleIds())) {
             authorities = new ArrayList<>();
             user.getRoleIds().forEach(roleId -> authorities.add(new SimpleGrantedAuthority(String.valueOf(roleId))));
         }
