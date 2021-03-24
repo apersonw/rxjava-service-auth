@@ -1,11 +1,8 @@
 package org.rxjava.service.auth.config;
 
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -14,33 +11,30 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 /**
- * 授权服务配置
+ * 认证服务器配置
+ *
  * @author happy
  */
 @Configuration
 @EnableAuthorizationServer
-@AllArgsConstructor
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+
+    public AuthorizationServerConfig(AuthenticationManager authenticationManager, TokenStore tokenStore) {
+        this.authenticationManager = authenticationManager;
+        this.tokenStore = tokenStore;
+    }
+
     /**
      * 该对象用来支持 password 模式
      */
-    @Autowired
-    private final AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
 
     /**
      * 该对象用来将令牌信息存储到内存中
      */
-    @Autowired(required = false)
-    private final TokenStore tokenStore;
-
-    /**
-     * 该对象将为刷新token提供支持
-     */
-    @Autowired
-    private final UserDetailsService userDetailsService;
+    TokenStore tokenStore;
 
     /**
      * 指定密码的加密方式
@@ -74,8 +68,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         //配置令牌的存储（这里存放在内存中）
         endpoints.tokenStore(tokenStore)
-                .authenticationManager(authenticationManager)
-                .userDetailsService(userDetailsService);
+                .authenticationManager(authenticationManager);
     }
 
     @Override

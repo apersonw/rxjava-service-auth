@@ -15,13 +15,14 @@ spring:
       enabled: false
       discovery:
         enabled: false
-      client:
-        namespace: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mall-pms?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
+    url: jdbc:mysql://localhost:3306/rxjava-service-auth?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
     username: root
     password: root111
+  jpa:
+    hibernate:
+      ddl-auto: update
 server:
   port: 8080
 debug: true
