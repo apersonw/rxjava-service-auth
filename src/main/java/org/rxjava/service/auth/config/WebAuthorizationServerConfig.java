@@ -1,17 +1,23 @@
 package org.rxjava.service.auth.config;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 认证服务器配置
@@ -22,58 +28,40 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableAuthorizationServer
 public class WebAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    /**
-     * 该对象用来支持 password 模式
-     */
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenStore tokenStore;
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+    @Autowired
+    private TokenEnhancer tokenEnhancer;
+    @Autowired
+    private DataSource dataSource;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-    /**
-     * 该对象用来将令牌信息存储到内存中
-     */
-    private final TokenStore tokenStore;
-
-    /**
-     * 密码编码器
-     */
-    private final PasswordEncoder passwordEncoder;
-
-    private final UserDetailsService userDetailsService;
-
-    public WebAuthorizationServerConfig(AuthenticationManager authenticationManager,
-                                        TokenStore tokenStore,
-                                        PasswordEncoder passwordEncoder,
-                                        UserDetailsService userDetailsService
-    ) {
-        this.authenticationManager = authenticationManager;
-        this.tokenStore = tokenStore;
-        this.passwordEncoder = passwordEncoder;
-        this.userDetailsService = userDetailsService;
-    }
-
-    /**
-     * 配置客户端授权模式
-     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("order-client")
-                .secret(passwordEncoder.encode("order-secret-8888"))
-                .authorizedGrantTypes("refresh_token", "authorization_code", "password")
-                .accessTokenValiditySeconds(3600)
-                .scopes("all")
-                .and()
-                .withClient("user-client")
-                .secret(passwordEncoder.encode("user-secret-8888"))
-                .authorizedGrantTypes("refresh_token", "authorization_code", "password")
-                .accessTokenValiditySeconds(3600)
-                .scopes("all");
+        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.authenticationManager(authenticationManager)
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        List<TokenEnhancer> enhancerList = new ArrayList<>();
+        enhancerList.add(tokenEnhancer);
+        enhancerList.add(jwtAccessTokenConverter);
+        enhancerChain.setTokenEnhancers(enhancerList);
+
+        endpoints.tokenStore(tokenStore)
+                .tokenEnhancer(enhancerChain)
                 .userDetailsService(userDetailsService)
-                .tokenStore(tokenStore);
+                .authenticationManager(authenticationManager)
+                .accessTokenConverter(jwtAccessTokenConverter);
+
     }
 
     @Override
