@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author happy
  */
 public interface UserRepository extends JpaRepository<User, String> {
+    User findUserByUsername(String username);
 }

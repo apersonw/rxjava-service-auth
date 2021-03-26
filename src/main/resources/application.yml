@@ -23,6 +23,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-uri: http://localhost:8080/oauth/token_key
+        key-value: dev
 server:
   port: 8080
 debug: true

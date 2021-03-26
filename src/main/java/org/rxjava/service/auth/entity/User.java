@@ -6,6 +6,7 @@ import org.rxjava.web.core.BaseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @Entity
 @Data
 public class User extends BaseEntity implements UserDetails {
+    @Column(unique = true, nullable = false)
     private String username;
     private String password;
     private boolean accountNonExpired;
