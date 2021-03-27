@@ -23,6 +23,30 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  swagger:
+    front:
+      groupName: front
+      basePackage: org.rxjava.service.auth
+      title: 前端
+      description: 前端
+      contactName: 前端
+      contactEmail: 前端
+      contactUrl: 前端
+      version: v.10
+    back:
+      groupName: back
+      basePackage: org.rxjava.service.auth
+      title: 后端
+      description: 后端
+      contactName: 后端
+      contactEmail: 后端
+      contactUrl: 后端
+      version: v.10
+#  mvc:
+#    throw-exception-if-no-handler-found: true
+#  web:
+#    resources:
+#      add-mappings: false
 security:
   oauth2:
     resource:
@@ -36,3 +60,4 @@ management:
   endpoint:
     health:
       enabled: true
+
