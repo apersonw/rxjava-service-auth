@@ -7,3 +7,5 @@
 3、在使用密码模式时，如果用户实现了UserDetailsService类，则在验证用户名密码时，使用自定义的方法。因为在校验用户名密码时，使用了DaoAuthenticationProvider中的retrieveUser方法(具体可参考AuthenticationManager、ProviderManager）
 
 4、默认获取token的路径是/oauth/token，通过pathMapping方法，可改变默认路径
+
+当前存在的问题：用户名或密码错误
