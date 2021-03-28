@@ -5,6 +5,8 @@ import org.rxjava.service.auth.form.UserForm;
 import org.rxjava.service.auth.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import javax.validation.Valid;
 public class HelloController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/admin/hello")
     public String admin() {
@@ -40,9 +44,11 @@ public class HelloController {
     public User saveUser(@Valid UserForm form) {
         User user = new User();
         BeanUtils.copyProperties(form, user);
+        user.setPassword(passwordEncoder.encode("123456"));
         return userRepository.save(user);
     }
 
+    @PreAuthorize("hasAuthority('userObj:read')")
     @GetMapping("userObj")
     public User getUser(@Valid String username) {
         return userRepository.findUserByUsername(username);
