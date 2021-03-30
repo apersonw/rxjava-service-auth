@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @author happy
  */
 @SpringBootApplication
-@ComponentScan(basePackages = {"org.rxjava"})
 public class RxWebAuthApplication {
     public static void main(String[] args) {
         SpringApplication.run(RxWebAuthApplication.class, args);

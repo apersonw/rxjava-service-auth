@@ -14,6 +14,6 @@ public class Menu extends BaseEntity {
     private String icon;
     private String url;
     private String type;
-    private int order;
+    private int level;
     private String status;
 }
