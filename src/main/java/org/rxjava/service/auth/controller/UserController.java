@@ -1,9 +1,14 @@
 package org.rxjava.service.auth.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.rxjava.service.auth.entity.User;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user")
 public class UserController {
+
+    @PostMapping("login/account")
+    public User login() {
+        return new User();
+    }
 }
