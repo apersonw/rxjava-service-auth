@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * @author happy
+ * 用户表
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity

@@ -8,13 +8,13 @@ import org.rxjava.web.core.BaseEntity;
 import javax.persistence.Entity;
 
 /**
- * 角色权限表
+ * 组权限表
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-public class RolePermission extends BaseEntity {
-    private String roleId;
+public class GroupPermission extends BaseEntity {
+    private String groupId;
     private String permissionId;
     private PermissionType permissionType;
 }

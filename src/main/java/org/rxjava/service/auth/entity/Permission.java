@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 @Entity
 @Data
 public class Permission extends BaseEntity {
+    private String parentId;
     private String name;
     private String type;
+    private String description;
 }
