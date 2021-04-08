@@ -7,7 +7,6 @@ import org.rxjava.web.core.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
