@@ -17,9 +17,9 @@ import java.util.Set;
 @Entity
 @Data
 public class Menu extends BaseEntity {
-    @JsonIgnore
-    @ManyToMany(mappedBy = "menus")
-    private Set<Role> roles;
+    //@JsonIgnore
+    //@ManyToMany(mappedBy = "menus")
+    //private Set<Role> roles;
     private String title;
     private String componentName;
     private Integer menuSort = 999;
