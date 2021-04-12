@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 /**
  * jwtTokenStore配置
+ *
  * @author happy
  */
 @Configuration

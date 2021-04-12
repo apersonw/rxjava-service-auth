@@ -1,6 +1,5 @@
 package org.rxjava.service.auth.config;
 
-import org.apache.catalina.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
