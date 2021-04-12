@@ -1,28 +1,27 @@
 package org.rxjava.service.auth.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.rxjava.web.core.BaseEntity;
 
-import javax.persistence.*;
-import java.util.HashSet;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.util.Set;
 
 /**
  * @author happy
  * 角色表
  */
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Role extends BaseEntity {
     /**
      * 用户角色中间表
      */
-    @JsonIgnoreProperties("roles")
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users=new HashSet<>();
+    //@ManyToMany(mappedBy = "roles")
+    //private Set<User> users;
     ///**
     // * 角色菜单中间表
     // */
