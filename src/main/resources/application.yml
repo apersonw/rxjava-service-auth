@@ -23,6 +23,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
   swagger:
     front:
       groupName: front
@@ -60,4 +61,3 @@ management:
   endpoint:
     health:
       enabled: true
-

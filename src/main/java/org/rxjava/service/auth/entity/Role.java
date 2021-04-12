@@ -2,12 +2,9 @@ package org.rxjava.service.auth.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.rxjava.web.core.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import java.util.Set;
 
 /**
  * @author happy
