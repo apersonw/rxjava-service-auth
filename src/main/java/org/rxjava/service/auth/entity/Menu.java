@@ -1,13 +1,10 @@
 package org.rxjava.service.auth.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.rxjava.web.core.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import java.util.Set;
 
 /**
  * @author happy
@@ -17,9 +14,6 @@ import java.util.Set;
 @Entity
 @Data
 public class Menu extends BaseEntity {
-    //@JsonIgnore
-    //@ManyToMany(mappedBy = "menus")
-    //private Set<Role> roles;
     private String title;
     private String componentName;
     private Integer menuSort = 999;
