@@ -1,5 +1,6 @@
 package org.rxjava.service.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.rxjava.web.core.BaseEntity;
@@ -22,6 +23,7 @@ public class User extends BaseEntity implements UserDetails {
     /**
      * 用户角色
      */
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},

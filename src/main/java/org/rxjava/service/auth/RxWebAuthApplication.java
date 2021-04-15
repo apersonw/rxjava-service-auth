@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * 认证微服务
+ * 认证中心微服务(含用户权限管理)
  *
  * @author happy
  */

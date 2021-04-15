@@ -1,5 +1,6 @@
 package org.rxjava.service.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.rxjava.web.core.BaseEntity;
@@ -21,6 +22,7 @@ public class Role extends BaseEntity {
     /**
      * 角色菜单中间表
      */
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "role_menu",
             joinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")},
