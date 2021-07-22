@@ -1,6 +1,5 @@
 package org.rxjava.service.auth.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,20 +27,23 @@ import java.util.List;
 @EnableAuthorizationServer
 public class WebAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private TokenStore tokenStore;
-    @Autowired
-    private JwtAccessTokenConverter jwtAccessTokenConverter;
-    @Autowired
-    private TokenEnhancer tokenEnhancer;
-    @Autowired
-    private DataSource dataSource;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenStore tokenStore;
+    private final JwtAccessTokenConverter jwtAccessTokenConverter;
+    private final TokenEnhancer tokenEnhancer;
+    private final DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
+    private final UserDetailsService userDetailsService;
+
+    public WebAuthorizationServerConfig(AuthenticationManager authenticationManager, TokenStore tokenStore, JwtAccessTokenConverter jwtAccessTokenConverter, TokenEnhancer tokenEnhancer, DataSource dataSource, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.tokenStore = tokenStore;
+        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+        this.tokenEnhancer = tokenEnhancer;
+        this.dataSource = dataSource;
+        this.passwordEncoder = passwordEncoder;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

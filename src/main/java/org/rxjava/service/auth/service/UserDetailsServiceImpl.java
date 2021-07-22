@@ -3,7 +3,7 @@ package org.rxjava.service.auth.service;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.rxjava.service.auth.entity.User;
-import org.rxjava.service.auth.model.UserModel;
+import org.rxjava.service.auth.model.UserDetailsModel;
 import org.rxjava.service.auth.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (ObjectUtils.isEmpty(user)) {
             throw new UsernameNotFoundException("the user is not found");
         } else {
-            UserModel model = new UserModel();
+            UserDetailsModel model = new UserDetailsModel();
             BeanUtils.copyProperties(user, model);
 
             List<GrantedAuthority> authorities = new ArrayList<>();

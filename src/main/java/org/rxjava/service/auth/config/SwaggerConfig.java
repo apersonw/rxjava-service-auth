@@ -1,6 +1,5 @@
 package org.rxjava.service.auth.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +19,11 @@ public class SwaggerConfig {
     /**
      * 配置属性
      */
-    @Autowired
-    private SwaggerProperties properties;
+    private final SwaggerProperties properties;
+
+    public SwaggerConfig(SwaggerProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     public Docket frontApi() {

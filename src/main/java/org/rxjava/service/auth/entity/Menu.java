@@ -27,4 +27,6 @@ public class Menu extends BaseEntity {
     private String parentId;
     private Integer subCount = 0;
     private Boolean iFrame;
+    private long level;
+    private long sort;
 }

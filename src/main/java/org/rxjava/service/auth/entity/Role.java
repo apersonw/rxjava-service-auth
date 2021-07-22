@@ -31,4 +31,6 @@ public class Role extends BaseEntity {
     private String parentId;
     private String name;
     private String description;
+    private boolean status;
+    private long sort;
 }
