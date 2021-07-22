@@ -1,5 +1,10 @@
 package org.rxjava.service.auth.config;
 
+import org.rxjava.service.auth.filter.DynamicAccessDecisionManager;
+import org.rxjava.service.auth.filter.DynamicSecurityFilter;
+import org.rxjava.service.auth.filter.DynamicSecurityMetadataSource;
+import org.rxjava.service.auth.service.DynamicSecurityService;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,6 +49,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated();
+    }
+
+    @Bean
+    public IgnoreUrlsConfig ignoreUrlsConfig() {
+        return new IgnoreUrlsConfig();
+    }
+
+    @Bean
+    public DynamicAccessDecisionManager dynamicAccessDecisionManager() {
+        return new DynamicAccessDecisionManager();
+    }
+
+    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicSecurityFilter dynamicSecurityFilter(DynamicSecurityMetadataSource dynamicSecurityMetadataSource, IgnoreUrlsConfig ignoreUrlsConfig) {
+        return new DynamicSecurityFilter(dynamicSecurityMetadataSource, ignoreUrlsConfig);
+    }
+
+    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicSecurityMetadataSource dynamicSecurityMetadataSource(DynamicSecurityService dynamicSecurityService) {
+        return new DynamicSecurityMetadataSource(dynamicSecurityService);
     }
 
 }
