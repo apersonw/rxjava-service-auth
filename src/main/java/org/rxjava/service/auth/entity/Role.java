@@ -3,7 +3,7 @@ package org.rxjava.service.auth.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.rxjava.web.core.BaseEntity;
+import top.rxjava.starter.jpa.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

@@ -3,7 +3,7 @@ package org.rxjava.service.auth.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.rxjava.service.auth.type.PermissionType;
-import org.rxjava.web.core.BaseEntity;
+import top.rxjava.starter.jpa.entity.BaseEntity;
 
 import javax.persistence.Entity;
 

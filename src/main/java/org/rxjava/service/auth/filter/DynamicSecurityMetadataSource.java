@@ -1,6 +1,5 @@
 package org.rxjava.service.auth.filter;
 
-import cn.hutool.core.util.URLUtil;
 import org.rxjava.service.auth.service.DynamicSecurityService;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
@@ -36,11 +35,13 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-        if (configAttributeMap == null) this.loadDataSource();
+        if (configAttributeMap == null) {
+            this.loadDataSource();
+        }
         List<ConfigAttribute>  configAttributes = new ArrayList<>();
         //获取当前访问的路径
         String url = ((FilterInvocation) o).getRequestUrl();
-        String path = URLUtil.getPath(url);
+        String path = url;
         PathMatcher pathMatcher = new AntPathMatcher();
         Iterator<String> iterator = configAttributeMap.keySet().iterator();
         //获取访问该路径所需资源

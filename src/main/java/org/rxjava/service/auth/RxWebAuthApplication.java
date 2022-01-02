@@ -7,8 +7,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 认证中心微服务(含用户权限管理)
- *
- * @author happy
  */
 @SpringBootApplication
 public class RxWebAuthApplication {
