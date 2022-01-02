@@ -15,6 +15,11 @@ spring:
       enabled: false
       discovery:
         enabled: false
+    nacos:
+      config:
+        enabled: false
+      discovery:
+        enabled: false
   datasource:
     url: "jdbc:mysql://localhost:3306/rxjava_service_auth?createDatabaseIfNotExist=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true"
     username: root
