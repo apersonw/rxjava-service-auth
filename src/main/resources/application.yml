@@ -11,10 +11,6 @@ spring:
       database: rxjava-service-auth
       uri: mongodb://localhost:27017
   cloud:
-    kubernetes:
-      enabled: false
-      discovery:
-        enabled: false
     nacos:
       config:
         enabled: false
@@ -29,30 +25,6 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-  swagger:
-    front:
-      groupName: front
-      basePackage: org.rxjava.service.auth
-      title: 前端
-      description: 前端
-      contactName: 前端
-      contactEmail: 前端
-      contactUrl: 前端
-      version: v.10
-    back:
-      groupName: back
-      basePackage: org.rxjava.service.auth
-      title: 后端
-      description: 后端
-      contactName: 后端
-      contactEmail: 后端
-      contactUrl: 后端
-      version: v.10
-#  mvc:
-#    throw-exception-if-no-handler-found: true
-#  web:
-#    resources:
-#      add-mappings: false
 security:
   oauth2:
     resource:
