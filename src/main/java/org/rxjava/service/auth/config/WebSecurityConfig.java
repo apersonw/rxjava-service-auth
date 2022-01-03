@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
 /**
  * 基本配置
+ * @author happy
  */
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

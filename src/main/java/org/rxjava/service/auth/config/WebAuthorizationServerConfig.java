@@ -1,5 +1,7 @@
 package org.rxjava.service.auth.config;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,6 +27,7 @@ import java.util.List;
  */
 @Configuration
 @EnableAuthorizationServer
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class WebAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;
@@ -34,16 +37,6 @@ public class WebAuthorizationServerConfig extends AuthorizationServerConfigurerA
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
-
-    public WebAuthorizationServerConfig(AuthenticationManager authenticationManager, TokenStore tokenStore, JwtAccessTokenConverter jwtAccessTokenConverter, TokenEnhancer tokenEnhancer, DataSource dataSource, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
-        this.authenticationManager = authenticationManager;
-        this.tokenStore = tokenStore;
-        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
-        this.tokenEnhancer = tokenEnhancer;
-        this.dataSource = dataSource;
-        this.passwordEncoder = passwordEncoder;
-        this.userDetailsService = userDetailsService;
-    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

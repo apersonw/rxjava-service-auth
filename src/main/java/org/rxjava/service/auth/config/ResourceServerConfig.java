@@ -1,5 +1,7 @@
 package org.rxjava.service.auth.config;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,13 +16,10 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final TokenStore tokenStore;
-
-    public ResourceServerConfig(TokenStore tokenStore) {
-        this.tokenStore = tokenStore;
-    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
