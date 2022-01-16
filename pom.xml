@@ -15,7 +15,6 @@
         <git.url>https://codeup.aliyun.com/5eb8536c38076f00011bd2ac/rxjava/rxjava-api-auth.git</git.url>
         <module.name>auth</module.name>
         <module.Name>Auth</module.Name>
-        <reactive>false</reactive>
     </properties>
 
     <dependencies>
