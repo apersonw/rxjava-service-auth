@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author happy
+ */
 @Component
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class InitCommandLineRunner implements CommandLineRunner {

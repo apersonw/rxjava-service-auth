@@ -8,10 +8,11 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  * 自定义异常解析器
+ * @author happy
  */
 @ControllerAdvice
 public class CustomExceptionHandler {
-    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     @ResponseBody
     public String exceptionHandler(SQLIntegrityConstraintViolationException e) {
         System.out.println("发生了一个异常" + e);
