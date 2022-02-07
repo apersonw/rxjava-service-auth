@@ -5,9 +5,11 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.PathMatcher;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.*;
 
 /**
@@ -28,6 +30,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         configAttributeMap = dynamicSecurityService.loadDataSource();
     }
 
+    @PreDestroy
     public void clearDataSource() {
         configAttributeMap.clear();
         configAttributeMap = null;
@@ -43,9 +46,11 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         String path = ((FilterInvocation) o).getRequestUrl();
         PathMatcher pathMatcher = new AntPathMatcher();
         //获取访问该路径所需资源
-        for (String pattern : configAttributeMap.keySet()) {
-            if (pathMatcher.match(pattern, path)) {
-                configAttributes.add(configAttributeMap.get(pattern));
+        if (!CollectionUtils.isEmpty(configAttributes)) {
+            for (String pattern : configAttributeMap.keySet()) {
+                if (pathMatcher.match(pattern, path)) {
+                    configAttributes.add(configAttributeMap.get(pattern));
+                }
             }
         }
         // 未设置操作请求权限，返回空集合

@@ -4,7 +4,8 @@
 
 2、如果要使用密码模式，必须得配置AuthenticationManager(原因可查看源码AuthorizationServerEndpointsConfigurer的getDefaultTokenGranters方法)
 
-3、在使用密码模式时，如果用户实现了UserDetailsService类，则在验证用户名密码时，使用自定义的方法。因为在校验用户名密码时，使用了DaoAuthenticationProvider中的retrieveUser方法(具体可参考AuthenticationManager、ProviderManager）
+3、在使用密码模式时，如果用户实现了UserDetailsService类，则在验证用户名密码时，使用自定义的方法。因为在校验用户名密码时，使用了DaoAuthenticationProvider中的retrieveUser方法(
+具体可参考AuthenticationManager、ProviderManager）
 
 4、默认获取token的路径是/oauth/token，通过pathMapping方法，可改变默认路径
 
@@ -28,4 +29,8 @@ curl --location --request GET 'http://localhost:8080/oauth/token?client_id=user-
 --header 'Sec-Fetch-Dest: document' \
 --header 'Accept-Language: zh-CN,zh;q=0.9' \
 --header 'Cookie: JSESSIONID=B5DAEA82C0E0A847515C07F5BA8A710D'
+```
+
+```text
+参考文章：https://juejin.cn/post/6844904095942180878#heading-4
 ```
