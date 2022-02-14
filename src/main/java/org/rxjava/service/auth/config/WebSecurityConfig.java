@@ -1,5 +1,6 @@
 package org.rxjava.service.auth.config;
 
+import org.rxjava.service.auth.exception.CustomAuthenticationEntryPoint;
 import org.rxjava.service.auth.filter.DynamicAccessDecisionManager;
 import org.rxjava.service.auth.filter.DynamicSecurityFilter;
 import org.rxjava.service.auth.filter.DynamicSecurityMetadataSource;
@@ -47,9 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()).and()
                 .antMatchers("/oauth/**").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+        ;
     }
 
     @Bean
