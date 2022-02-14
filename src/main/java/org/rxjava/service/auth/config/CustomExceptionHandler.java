@@ -1,5 +1,6 @@
 package org.rxjava.service.auth.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,11 +12,12 @@ import java.sql.SQLIntegrityConstraintViolationException;
  * @author happy
  */
 @ControllerAdvice
+@Slf4j
 public class CustomExceptionHandler {
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     @ResponseBody
     public String exceptionHandler(SQLIntegrityConstraintViolationException e) {
-        System.out.println("发生了一个异常" + e);
+        log.error("CustomExceptionHandler->exceptionHandler:",e);
         return e.getMessage();
     }
 }
