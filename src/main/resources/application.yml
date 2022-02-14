@@ -32,7 +32,7 @@ security:
         key-uri: http://localhost:8080/oauth/token_key
         key-value: dev
 server:
-  port: 8080
+  port: 8888
 debug: true
 management:
   endpoint:
