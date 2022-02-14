@@ -10,12 +10,6 @@ spring:
     mongodb:
       database: rxjava-service-auth
       uri: mongodb://localhost:27017
-  cloud:
-    nacos:
-      config:
-        enabled: false
-      discovery:
-        enabled: false
   datasource:
     url: "jdbc:mysql://localhost:3306/rxjava_service_auth?createDatabaseIfNotExist=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true"
     username: root
@@ -29,7 +23,7 @@ security:
   oauth2:
     resource:
       jwt:
-        key-uri: http://localhost:8080/oauth/token_key
+        key-uri: http://localhost:${server.port}/oauth/token_key
         key-value: dev
 server:
   port: 8888

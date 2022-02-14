@@ -1,5 +1,6 @@
 package org.rxjava.service.auth.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.rxjava.service.auth.entity.Role;
 import org.rxjava.service.auth.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
