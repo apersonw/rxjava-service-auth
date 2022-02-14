@@ -11,9 +11,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("role")
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class RoleController {
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     @GetMapping("list")
     public List<Role> roleList() {

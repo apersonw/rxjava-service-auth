@@ -1,5 +1,6 @@
 package org.rxjava.service.auth.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.rxjava.service.auth.entity.User;
 import org.rxjava.service.auth.form.UserForm;
 import org.rxjava.service.auth.repository.UserRepository;
@@ -18,11 +19,10 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("test")
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class HelloController {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/admin/hello")
     public String admin() {

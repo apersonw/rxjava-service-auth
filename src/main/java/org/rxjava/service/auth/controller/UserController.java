@@ -1,5 +1,6 @@
 package org.rxjava.service.auth.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.rxjava.service.auth.entity.Role;
 import org.rxjava.service.auth.entity.User;
 import org.rxjava.service.auth.repository.RoleRepository;
@@ -13,11 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @PostMapping("login/account")
     public User login() {
