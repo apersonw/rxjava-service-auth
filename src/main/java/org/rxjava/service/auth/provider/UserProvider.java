@@ -1,8 +1,10 @@
 package org.rxjava.service.auth.provider;
 
+import lombok.RequiredArgsConstructor;
 import org.rxjava.service.auth.model.UserElementModel;
 import org.rxjava.service.auth.model.UserModel;
 import org.rxjava.service.auth.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +16,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class UserProvider {
     private final UserService userService;
-
-    public UserProvider(UserService userService) {
-        this.userService = userService;
-    }
 
     /**
      * 查询用户所有详情
