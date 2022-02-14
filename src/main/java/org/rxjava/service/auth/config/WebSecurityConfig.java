@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()).and()
+        http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .antMatchers("/oauth/**").permitAll()
                 .anyRequest().authenticated()
         ;
