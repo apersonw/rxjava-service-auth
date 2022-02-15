@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,13 +14,16 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import top.rxjava.common.core.exception.ErrorMessage;
 import top.rxjava.common.core.exception.UnauthorizedException;
+import top.rxjava.common.utils.JsonUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Base64;
 
 /**
@@ -46,17 +50,27 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
         if (clientDetails == null) {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=utf-8");
-            response.getWriter().write("OAUTH_GET_TOKEN_FAIL_CLIENT_MISSING");
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            ErrorMessage errorMessage = new ErrorMessage("客户端Header Authorization不存在");
+            errorMessage.setStatus(HttpStatus.UNAUTHORIZED.value());
+            errorMessage.setTimestamp(LocalDateTime.now());
+            errorMessage.setPath(request.getServletPath());
+            response.getWriter().write(JsonUtils.serialize(errorMessage));
             return;
         }
 
         try {
             this.handle(request, response, clientDetails, filterChain);
-        } catch (UnauthorizedException coe) {
+        } catch (UnauthorizedException unauthorizedException) {
             // 客户端认证失败
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json; charset=utf-8");
-            response.getWriter().write("OAUTH_GET_TOKEN_FAIL_CLIENT");
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            ErrorMessage errorMessage = new ErrorMessage("客户端Header Authorization认证失败");
+            errorMessage.setStatus(HttpStatus.UNAUTHORIZED.value());
+            errorMessage.setTimestamp(LocalDateTime.now());
+            errorMessage.setPath(request.getServletPath());
+            response.getWriter().write(JsonUtils.serialize(errorMessage));
         }
     }
 
@@ -71,12 +85,12 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
         try {
             details = this.getClientDetailsService().loadClientByClientId(clientDetails[0]);
         } catch (ClientRegistrationException e) {
-            log.info("client认证失败，{},{}", e.getMessage(), clientDetails[0]);
-            throw UnauthorizedException.of("client_id 或client_secret 不正确");
+            log.error("client认证失败，{},{}", e.getMessage(), clientDetails[0]);
+            throw UnauthorizedException.of("client_id或client_secret不正确");
         }
 
         if (details == null) {
-            log.info("client认证失败，{}", clientDetails[0]);
+            log.error("client信息缺失，{}", clientDetails[0]);
             throw UnauthorizedException.of("client_id或client_secret不正确");
         }
 
