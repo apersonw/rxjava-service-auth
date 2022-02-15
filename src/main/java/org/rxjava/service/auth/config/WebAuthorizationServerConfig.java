@@ -1,6 +1,7 @@
 package org.rxjava.service.auth.config;
 
 import lombok.RequiredArgsConstructor;
+import org.rxjava.service.auth.filter.CustomBasicAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,6 +38,7 @@ public class WebAuthorizationServerConfig extends AuthorizationServerConfigurerA
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
+    private final CustomBasicAuthenticationFilter customBasicAuthenticationFilter;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -67,5 +69,7 @@ public class WebAuthorizationServerConfig extends AuthorizationServerConfigurerA
         security.checkTokenAccess("isAuthenticated()");
         //允许已授权用户访问获取 token 接口
         security.tokenKeyAccess("isAuthenticated()");
+        //client认证过滤器
+        security.addTokenEndpointAuthenticationFilter(customBasicAuthenticationFilter);
     }
 }
