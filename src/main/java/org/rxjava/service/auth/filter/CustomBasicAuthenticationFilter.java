@@ -83,7 +83,7 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
 
         ClientDetails details;
         try {
-            details = this.getClientDetailsService().loadClientByClientId(clientDetails[0]);
+            details = clientDetailsService.loadClientByClientId(clientDetails[0]);
         } catch (ClientRegistrationException e) {
             log.error("client认证失败，{},{}", e.getMessage(), clientDetails[0]);
             throw UnauthorizedException.of("client_id或client_secret不正确");
@@ -126,9 +126,5 @@ public class CustomBasicAuthenticationFilter extends OncePerRequestFilter {
             params = new String[]{id, secret};
         }
         return params;
-    }
-
-    public ClientDetailsService getClientDetailsService() {
-        return clientDetailsService;
     }
 }
