@@ -58,7 +58,6 @@ public class WebAuthorizationServerConfig extends AuthorizationServerConfigurerA
                 .userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager)
                 .accessTokenConverter(jwtAccessTokenConverter);
-
     }
 
     @Override
